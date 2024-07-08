@@ -78,9 +78,19 @@ declare namespace Bree {
     hasSeconds?: boolean;
     cronValidate?: Record<string, unknown>;
     closeWorkerAfterMs?: number;
-    worker?: Partial<WorkerOptions>;
+    worker?: Partial<WorkerOptions> & {
+      workerData?: Record<string, unknown> | (() => Record<string, unknown>);
+    };
     outputWorkerMetadata?: boolean;
     timezone?: string;
+  };
+
+  interface DynamicWorkerDataPluginOptions {
+    // Add any options specific to the plugin if needed
+  }
+
+  const plugins: {
+    dynamicWorkerData: PluginFunc<DynamicWorkerDataPluginOptions>;
   };
 
   type JobOptions = Required<Pick<Job, 'name'>> & Partial<Omit<Job, 'name'>>;
