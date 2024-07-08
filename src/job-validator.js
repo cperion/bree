@@ -280,6 +280,17 @@ const validate = async (job, i, names, config) => {
     errors.push(...validateCron(job, prefix, config));
   }
 
+  // Validate workerData
+  if (job.worker && job.worker.workerData !== undefined) {
+    if (typeof job.worker.workerData !== 'object' && typeof job.worker.workerData !== 'function') {
+      errors.push(
+        new Error(
+          `${prefix} had workerData value set, but it must be an Object or a Function`
+        )
+      );
+    }
+  }
+
   // Validate closeWorkerAfterMs
   if (
     job.closeWorkerAfterMs !== undefined &&

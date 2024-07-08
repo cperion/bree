@@ -797,3 +797,8 @@ Bree.extend = (plugin, options) => {
 };
 
 module.exports = Bree;
+
+// Export the dynamic worker data plugin
+module.exports.plugins = {
+  dynamicWorkerData: require('./plugins/dynamic-worker-data')
+};
